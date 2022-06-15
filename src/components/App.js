@@ -3,7 +3,7 @@ import { Form } from './Form';
 
 function App() { 
   return (
-    <div className='container d-flex'>
+    <div className='container d-flex justify-content-between'>
       <Form />
       <CharacterList />
     </div>

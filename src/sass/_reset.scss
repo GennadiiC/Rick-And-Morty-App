@@ -1,0 +1,12 @@
+$secondary-color: #DAC3D6;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: $secondary-color;
+}
+

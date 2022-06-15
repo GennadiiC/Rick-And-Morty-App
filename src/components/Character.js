@@ -8,7 +8,8 @@ export const Character = ({
   location, 
   status,
   episode,
-  created
+  created, 
+  image
 }) => {
 
   const [ clicked, setClicked ] = useState(false)
@@ -17,20 +18,6 @@ export const Character = ({
   let ids = idsArr.join(',')
 
   const { data: episodes, isFetching, isSuccess, isError, error } = useGetEpisodeForCharacterQuery(ids)
-
-
-  // function episodeString (value) {
-  //   if (value = 'name' && Array.isArray(episodes)) {
-  //     return episodes.map(ep => ep.name).join(', ') 
-  //   } else {
-  //     return episodes.name
-  //   } 
-  //   if (value == 'episode' && Array.isArray(episodes)) {
-  //     return episodes.map(ep => ep.episode).join(', ')
-  //   } else {
-  //     return episodes.episode
-  //   }
-  // }
 
   const episodesName = () => {
     if (Array.isArray(episodes)) {
@@ -55,20 +42,29 @@ export const Character = ({
   }
 
   return ( 
-    <div>
-      <div>
-        <p>Name: {name}, <span>Status: {status}</span></p>  
+    <div className="char">
+      <div className="container">
+        <img className="rounded float-start img-fluid" src={image} alt={name} />
+        <div>
+          <h5>Name: <span className="sm">{name}</span>, Status: <span className="sm">{status}</span></h5>  
+          <button className="btn" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
+          <div className={!clicked ? "d-none" : null}>
+            <p><span className="fs-5">Species:</span> {species}</p>
+            <p><span className="fs-5">Gender:</span> {gender}</p>
+            <p><span className="fs-5">Location:</span> {location.name}</p>
+            <div><span className="fs-5">Episode(s):</span>
+              <div>
+                <span>series:</span> 
+                <p>{isSuccess ? episodesSeries() : null}</p>
+              </div>
+              <div>
+                <span>title:</span> 
+                <p>{isSuccess ? episodesName() : null}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className={!clicked ? "d-none" : null}>
-         <p>Species: {species}</p>
-         <p>Gender: {gender}</p>
-         <p>Location: {location.name}</p>
-         <div>Episode(s):
-           <div>series: {isSuccess ? episodesSeries() : null}</div>
-           <div>title: {isSuccess ? episodesName() : null}</div>
-         </div>
-      </div>
-      <button onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
     </div>
   )
 }

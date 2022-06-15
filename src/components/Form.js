@@ -19,7 +19,7 @@ export function Form () {
 
 
   return (
-    <div>
+    <div className='container w-50'>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register('name')} />
       </form>
@@ -40,6 +40,7 @@ export function Form () {
               location={item.location}
               episode={item.episode}
               created={item.created}
+              image={item.image}
             />
             
           ) :
