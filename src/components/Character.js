@@ -42,7 +42,7 @@ export const Character = ({
   }
 
   return ( 
-    <div className="char m-2 rounded shadow">
+    <div className="d-flex justify-content-between my-2 rounded shadow">
       <div className="container">
         <img className="float-start rounded img-fluid my-3 me-3" src={image} alt={name} />
         <div className="mt-3">

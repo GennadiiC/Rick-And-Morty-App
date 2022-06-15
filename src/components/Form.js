@@ -10,35 +10,18 @@ export function Form () {
 
   const { data: character, isFetching, isSuccess, isError, error } = useGetCharacterByNameQuery(name);
 
-
-
   const onSubmit = (value) => {
-    setName(value.name)
+    setName(value.name);
     reset();
   }
 
 
   return (
     <div className='container w-50'>
-      {/* <div>
-        {
-          name === '' ? 
-          <p>Enter name</p> :
-          isFetching ? 
-          <p>Loading...</p> :
-          isSuccess ? 
-          <p>Look what I found:</p> :
-          isError ?
-          <p>Ops, {error.data.error.toLowerCase()}!</p> :
-          null
-        }
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register('name')} />
-        </form>
-      </div> */}
+      <h3 className='h3 text-center'>Find your character</h3>
       {
         name === '' ? 
-        <p>Enter name</p> :
+        <p>Enter name...</p> :
         isFetching ? 
         <p>Loading...</p> :
         isSuccess ? 
@@ -47,14 +30,10 @@ export function Form () {
         <p>Ops, {error.data.error.toLowerCase()}!</p> :
         null
       }
-      <div className='input-group'>
+      <form className='input-group input-group-sm'>
         <input className="form-control" {...register('name')} aria-label="Text input with dropdown button" />
-        <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
-        <ul className="dropdown-menu dropdown-menu-end">
-          <li><a className="dropdown-item" href="#">Start</a></li>
-          <li><a className="dropdown-item" href="#">Reset</a></li>
-        </ul>
-      </div>
+        <button className="btn" type="button" onClick={handleSubmit(onSubmit)}>Start/Reset</button>
+      </form>
       <div>
         { 
           name === '' ? 

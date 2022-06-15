@@ -4,13 +4,24 @@ import { Character } from "./Character"
 
 export function CharacterList () {
 
-  const [ page, setPage ] = useState('1')
+  const [ page, setPage ] = useState(1)
 
   const { data: characterList, isLoading, isFetching, isSuccess, isError, error } = useGetAllCharactersQuery(page)
 
+  const flipPage = (delta) => {
+    setPage(prevPage => prevPage += delta)
+  }
+
   return (
     <div className='container w-50'>
-      {/* {isSuccess ? console.log(characterList.results) : null} */}
+      <h3 className='h3 text-center'>Complete List of Characters</h3>
+      <p>Flip through the pages...</p>
+      <div className="d-flex justify-content-between input-group input-group-sm">
+        <button className="btn" onClick={() => flipPage(-1)}>Prev {page - 1}</button>
+        Page {page}
+        <button className="btn" onClick={() => flipPage(+1)}>Next {page + 1}</button>
+      </div>
+      {isSuccess ? console.log(characterList.info) : null}
       { 
         isFetching ? 
         <p>Loading...</p> :

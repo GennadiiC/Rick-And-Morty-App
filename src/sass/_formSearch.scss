@@ -1,15 +1,22 @@
 .dropdown-item {
   &:hover,
   &:focus {
-    // color: $dropdown-link-hover-color;
-    // text-decoration: if($link-hover-decoration == underline, none, null);
     @include gradient-bg($secondary-color);
   }
 
   &.active,
   &:active {
-    // color: $dropdown-link-active-color;
-    // text-decoration: none;
     @include gradient-bg($fx-color);
+  }
+}
+
+.form-control {
+  background-color: #FFE6FF;
+  &:focus {
+    color: $primary-color;
+    background-color: #FBF4D7;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    box-shadow: inset 1.5px 1.5px 2px 1px rgba($primary-color, 1.2);
   }
 }
