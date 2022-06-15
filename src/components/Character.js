@@ -42,23 +42,25 @@ export const Character = ({
   }
 
   return ( 
-    <div className="char">
+    <div className="char m-2 rounded shadow">
       <div className="container">
-        <img className="rounded float-start img-fluid" src={image} alt={name} />
-        <div>
+        <img className="float-start rounded img-fluid my-3 me-3" src={image} alt={name} />
+        <div className="mt-3">
           <h5>Name: <span className="sm">{name}</span>, Status: <span className="sm">{status}</span></h5>  
-          <button className="btn" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
+          <button className="btn my-3" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
           <div className={!clicked ? "d-none" : null}>
             <p><span className="fs-5">Species:</span> {species}</p>
             <p><span className="fs-5">Gender:</span> {gender}</p>
             <p><span className="fs-5">Location:</span> {location.name}</p>
-            <div><span className="fs-5">Episode(s):</span>
+            <p><span className="fs-5">Created:</span> {created.slice(0, -14)}</p>
+            <div>
+              <p className="fs-5">Episode(s):</p>
               <div>
-                <span>series:</span> 
+                <p className="ser">series:</p> 
                 <p>{isSuccess ? episodesSeries() : null}</p>
               </div>
               <div>
-                <span>title:</span> 
+                <p className="ser">title:</p> 
                 <p>{isSuccess ? episodesName() : null}</p>
               </div>
             </div>

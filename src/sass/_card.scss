@@ -1,14 +1,26 @@
 .char {
-  border: #007549 1px solid;
+  // border: $primary-color 1px solid;
   display: flex;
   justify-content: space-between;
 }
 
 .btn {
-  background: #FFDF81;
+  background: $fx-color;
+
+  .btn-check:focus + &,
+  &:focus {
+    outline: 0;
+    box-shadow: inset 1.5px 1.5px 2px 1px rgba($primary-color, 1.2);
+  }
+
 }
 
 .sm {
   font-size: 0.9rem;
+}
+
+.ser {
+  font-style: italic;
+  font-weight: 400;
 }
 

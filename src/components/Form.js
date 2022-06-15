@@ -20,15 +20,45 @@ export function Form () {
 
   return (
     <div className='container w-50'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('name')} />
-      </form>
-      <div>
+      {/* <div>
         {
           name === '' ? 
           <p>Enter name</p> :
           isFetching ? 
           <p>Loading...</p> :
+          isSuccess ? 
+          <p>Look what I found:</p> :
+          isError ?
+          <p>Ops, {error.data.error.toLowerCase()}!</p> :
+          null
+        }
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register('name')} />
+        </form>
+      </div> */}
+      {
+        name === '' ? 
+        <p>Enter name</p> :
+        isFetching ? 
+        <p>Loading...</p> :
+        isSuccess ? 
+        <p>Look what I found:</p> :
+        isError ?
+        <p>Ops, {error.data.error.toLowerCase()}!</p> :
+        null
+      }
+      <div className='input-group'>
+        <input className="form-control" {...register('name')} aria-label="Text input with dropdown button" />
+        <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
+        <ul className="dropdown-menu dropdown-menu-end">
+          <li><a className="dropdown-item" href="#">Start</a></li>
+          <li><a className="dropdown-item" href="#">Reset</a></li>
+        </ul>
+      </div>
+      <div>
+        { 
+          name === '' ? 
+          null :
           isSuccess ? 
           character.results.map(item => 
             <Character 
@@ -44,8 +74,6 @@ export function Form () {
             />
             
           ) :
-          isError ?
-          <p>Ops, {error.data.error.toLowerCase()}</p> :
           null
         }
       </div>
