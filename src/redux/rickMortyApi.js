@@ -9,8 +9,15 @@ export const rickMortyApi = createApi({
     }),
     getEpisodeForCharacter: builder.query({
       query: (query) => `episode/${query}`
+    }),
+    getAllCharacters: builder.query({
+      query: (query) => `character/?page=${query}`
     })
   }),
 })
 
-export const { useGetCharacterByNameQuery, useGetEpisodeForCharacterQuery } = rickMortyApi;
+export const { 
+  useGetCharacterByNameQuery, 
+  useGetEpisodeForCharacterQuery, 
+  useGetAllCharactersQuery 
+} = rickMortyApi;

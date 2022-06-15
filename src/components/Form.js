@@ -8,7 +8,7 @@ export function Form () {
   const { register, handleSubmit, reset } = useForm();
   const [ name, setName ] = useState('')
 
-  const { data: characters, isFetching, isSuccess, isError, error } = useGetCharacterByNameQuery(name);
+  const { data: character, isFetching, isSuccess, isError, error } = useGetCharacterByNameQuery(name);
 
 
 
@@ -30,7 +30,7 @@ export function Form () {
           isFetching ? 
           <p>Loading...</p> :
           isSuccess ? 
-          characters.results.map(item => 
+          character.results.map(item => 
             <Character 
               key={item.id}
               name={item.name}

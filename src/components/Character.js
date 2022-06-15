@@ -5,9 +5,9 @@ export const Character = ({
   name, 
   species, 
   gender,  
-  location,
-  episode, 
+  location, 
   status,
+  episode,
   created
 }) => {
 
@@ -67,7 +67,6 @@ export const Character = ({
            <div>series: {isSuccess ? episodesSeries() : null}</div>
            <div>title: {isSuccess ? episodesName() : null}</div>
          </div>
-         {/* {isSuccess ? console.log(episodes.episode) : null} */}
       </div>
       <button onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
     </div>
