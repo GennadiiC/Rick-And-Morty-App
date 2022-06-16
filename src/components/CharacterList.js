@@ -1,29 +1,22 @@
 import { useState } from "react"
-import { useGetAllCharactersQuery } from "../redux/rickMortyApi"
+import { useGetAllCharactersByPageQuery } from "../redux/rickMortyApi"
 import { Character } from "./Character"
 
-export function CharacterList () {
+export function CharacterList ({ page, flipPage }) {
 
-  const [ page, setPage ] = useState(1)
-
-  const { data: characterList, isLoading, isFetching, isSuccess, isError, error } = useGetAllCharactersQuery(page)
-
-  const flipPage = (delta) => {
-    setPage(prevPage => prevPage += delta)
-  }
+  const { data: characterList, isLoading, isFetching, isSuccess, isError, error } = useGetAllCharactersByPageQuery(page)
 
   return (
     <div className='container w-50'>
-      <h3 className='h3 text-center'>Complete List of Characters</h3>
-      <p>Flip through the pages...</p>
-      <div className="d-flex justify-content-between input-group input-group-sm">
-        <button className="btn" onClick={() => flipPage(-1)}>Prev {page - 1}</button>
-        Page {page}
-        <button className="btn" onClick={() => flipPage(+1)}>Next {page + 1}</button>
+      <h3 className='h3 text-center my-4'>Browse List of Characters</h3>
+      <p className="my-3">Flip through the pages... each page displays 20 characters</p>
+      <div className="d-flex justify-content-between input-group input-group-sm my-4">
+        <button className={page === 1 ? "btn disabled" : "btn"} onClick={() => flipPage(-1)}>Prev: {page === 1 ? '' : page - 1}</button>
+        <span className="sm my-auto">Page {page}</span>
+        <button className={page === 42 ? "btn disabled" : "btn"} onClick={() => flipPage(+1)}>Next: {page === 42 ? '' : page + 1}</button>
       </div>
-      {isSuccess ? console.log(characterList.info) : null}
       { 
-        isFetching ? 
+        isLoading ? 
         <p>Loading...</p> :
         isSuccess ?
         characterList.results.map(char => 
