@@ -1,16 +1,20 @@
 import { useForm } from 'react-hook-form';
-import { useGetCharacterByNameQuery, useGetAllCharactersQuery, useGetAllCharactersByPageQuery } from '../redux/rickMortyApi';
+import { useGetCharacterByNameQuery, useGetAllNamesQuery } from '../redux/rickMortyApi';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Character } from './Character';
 
 
-export function Form ({ page }) {
+export function Form () {
+
+  const page = useSelector((state) => state.rickMorty.page)
 
   const { register, handleSubmit, reset } = useForm();
   const [ name, setName ] = useState('')
+  const [ search, setSearch ] = useState('')
 
   const { data: character, isFetching, isSuccess, isError, error } = useGetCharacterByNameQuery(name);
-  const { data: characterList, isSuccess: characterListSuccess } = useGetAllCharactersByPageQuery(page)
+  const { data: allNames, isSuccess: namesSuccess, isError: namesErr, error: err } = useGetAllNamesQuery()
 
   const onSubmit = (value) => {
     setName(value.name);
@@ -31,19 +35,21 @@ export function Form ({ page }) {
         <p className="my-3">Ops, {error.data.error.toLowerCase()}!</p> :
         null
       }
-      {/* { 
-        
-        characterListSuccess ? console.log(characterList.info) : null
-      } */}
-      
       <form className='input-group input-group-sm my-4' onSubmit={handleSubmit(onSubmit)}>
-        <input className="form-control" list="datalistOptions" id="exampleDataList" {...register('name')} aria-label="Text input with dropdown button" autoComplete="off" />
-        <datalist id="datalistOptions">
+        <input 
+          className="form-control" 
+          onChange={(e) => setSearch(e.target.value)}
+          list="datalistOptions" 
+          id="exampleDataList" 
+          {...register('name')} 
+          aria-label="Text input with dropdown button" 
+          autoComplete="off" 
+        />
+        <datalist className='datalist' id="datalistOptions">
           { 
-            characterListSuccess ? characterList.results.map(char => 
+            namesSuccess ? allNames.map(char => 
               <option key={char.id} value={char.name} />
-            ) :
-            null
+            ) : null
           }
         </datalist>
         <button className="btn" type="button" onClick={handleSubmit(onSubmit)}>Start/Reset</button>
