@@ -2,23 +2,24 @@ import ReactFacebookLogin from "react-facebook-login";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/rickMortySlice";
+import { Link } from 'react-router-dom';
 
 export const Facebook = () => {
 
   const dispatch = useDispatch()
   const { users } = useSelector((state) => state.rickMorty)
 
-  // const [ id, setId ] = useState('')
+
   const [ state, setState ] = useState({
     isLogged: false,
     id: ''
   })
 
 
-
   const componentClicked = () => {
     console.log('clicked')
   }
+
 
   const responseFacebook = (response) => {
 
@@ -36,8 +37,8 @@ export const Facebook = () => {
       id: response.userID
     }))
      
-    console.log(response)
   }
+
 
   const user = users.find(usr => usr.userID === state.id)
 
@@ -48,6 +49,7 @@ export const Facebook = () => {
       <div>
         <img src={user.userPicture} alt={user.name} />
         <h6>Welcome, {user.name}</h6>
+        <Link to='/likes'>See liked collection</Link>
       </div>
     )
   } else {
@@ -66,7 +68,6 @@ export const Facebook = () => {
   return (
     <>
       {fbContent}
-      {/* {console.log(user)} */}
     </>
   )
 }

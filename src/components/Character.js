@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Facebook } from "./Facebook";
 
 export const Character = ({ 
+  id,
   name, 
   species, 
   gender,  
@@ -21,10 +22,6 @@ export const Character = ({
   const [ clicked, setClicked ] = useState(false)
   const [ liked, setLiked ] = useState(false)
 
-  // const [ likedCharacter, setLikedCharacter ] = useState({
-  //   name: '',
-  //   url: ''
-  // })
 
   let idsArr = episode.map(ep => Number(ep.slice(-2).replace('/', '')))
   let ids = idsArr.join(',')
@@ -52,7 +49,20 @@ export const Character = ({
   const likeToggle = () => {
     setLiked(!liked)
     
-    dispatch(likedChar({ name, image, id: user.userID }))
+    dispatch(likedChar({ 
+      id,
+      name,
+      species, 
+      gender,
+      location, 
+      status,
+      episode,
+      created, 
+      image, 
+      episodes, 
+      episodesName,
+      episodesSeries
+    }))
   }
 
 
@@ -66,7 +76,6 @@ export const Character = ({
       <div className="container">
         <img className="float-start rounded img-fluid my-3 me-3" src={image} alt={name} />
         <div className="mt-3">
-          {console.log(users)}
           <h5>Name: <span className="sm">{name}</span>, Status: <span className="sm">{status}</span></h5>  
           <button className="btn my-3" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
           <button className="btn" onClick={() => likeToggle()}>❤️ Like</button>

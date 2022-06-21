@@ -9,12 +9,6 @@ export function CharacterList () {
   const page = useSelector((state) => state.rickMorty.page)
   const dispatch = useDispatch()
 
-  // const [ page, setPage ] = useState(1)
-
-  // const flipPage = (delta) => {
-  //   setPage(prevPage => prevPage += delta)
-  // }
-
   const { data: characterList, isLoading, isSuccess, isError, error } = useGetAllCharactersByPageQuery(page)
 
   return (
@@ -33,6 +27,7 @@ export function CharacterList () {
         characterList.results.map(char => 
           <Character 
             key={char.id}
+            id={char.id}
             name={char.name}
             species={char.species}
             gender={char.gender}
