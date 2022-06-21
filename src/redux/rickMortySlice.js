@@ -33,15 +33,28 @@ const rickMortySlice = createSlice({
         episode: payload.episode,
         created: payload.created,  
         episodes: payload.episodes,
-        episodesName: payload.episodesName,
-        episodesSeries: payload.episodesSeries
+        title: payload.title,
+        series: payload.series
       }
       let user = state.users.find(usr => usr.isLogged === true)
-      user.likedCharacters.push(char)
+      let eqID = user.likedCharacters.find(chr => chr.id === payload.id)
+      if (!eqID) {
+        user.likedCharacters.push(char)
+      }
+    
+    },
+    disLikedChar: (state, {payload}) => {
+      let user = state.users.find(usr => usr.isLogged === true)
+      user.likedCharacters = user.likedCharacters.filter(char => char.id !== payload.charID)
+      console.log(payload)
+    },
+    logOut: (state, action) => {
+      let user = state.users.find(usr => usr.isLogged === true)
+      user.isLogged = false
     }
   }
 })
 
-export const { flipPage, addUser, likedChar } = rickMortySlice.actions;
+export const { flipPage, addUser, likedChar, disLikedChar, filterChar } = rickMortySlice.actions;
 
 export default rickMortySlice.reducer

@@ -1,4 +1,4 @@
-import ReactFacebookLogin from "react-facebook-login";
+import ReactFacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/rickMortySlice";
@@ -15,10 +15,12 @@ export const Facebook = () => {
     id: ''
   })
 
+  const [ clicked, setClicked ] = useState(false)
 
-  const componentClicked = () => {
-    console.log('clicked')
-  }
+
+  // const componentClicked = () => {
+  //   console.log('clicked')
+  // }
 
 
   const responseFacebook = (response) => {
@@ -46,10 +48,10 @@ export const Facebook = () => {
 
   if (state.isLogged) {
     fbContent = (
-      <div>
-        <img src={user.userPicture} alt={user.name} />
-        <h6>Welcome, {user.name}</h6>
-        <Link to='/likes'>See liked collection</Link>
+      <div className="d-flex justify-content-around align-items-center w-50">
+        <img className="img-fluid rounded float-start" src={user.userPicture} alt={user.name} />
+        <h6 className="h6 me-2 ms-3">Welcome, {user.name}</h6>
+        <Link className="btn btn-outline-dark text-center me-2" onClick={() => setClicked(!clicked)} to={!clicked ? '/likes' : '/'}>{!clicked ? 'See liked' : 'Go to main'}</Link>
       </div>
     )
   } else {
@@ -58,8 +60,10 @@ export const Facebook = () => {
         size='small'
         appId="590001315795132"
         autoLoad={true}
+        render={renderProps => (
+          <button className="btn btn-outline-dark my-3" onClick={renderProps.onClick}>Login to Facebook<i className="fa-brands fa-facebook-square"></i></button>
+        )}
         fields="name,email,picture"
-        onClick={componentClicked}
         callback={responseFacebook} 
       />
     )

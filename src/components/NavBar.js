@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 export const NavBar = () => {
   return (
-    <div className="p-5 sticky-top">
-      <h1 className="h1 text-center">Rick and Morty Database</h1>
-      <div className="d-flex p-2">
-        <Facebook />
-      </div>
+    <div className="d-flex justify-content-between align-items-center p-3 sticky-top">
+      <h1 className="h1 w-50">Rick and Morty Database</h1>
+      
+      <Facebook />
+  
     </div>
   )
 }

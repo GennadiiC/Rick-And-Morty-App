@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { likedChar } from "../redux/rickMortySlice";
+import { likedChar, filterChar } from "../redux/rickMortySlice";
 import { useGetEpisodeForCharacterQuery } from "../redux/rickMortyApi";
 import { useDispatch, useSelector } from "react-redux";
-import { Facebook } from "./Facebook";
 
 export const Character = ({ 
   id,
@@ -21,12 +20,12 @@ export const Character = ({
 
   const [ clicked, setClicked ] = useState(false)
   const [ liked, setLiked ] = useState(false)
-
+  const [ userLogged, setUserLogged ] = useState(false)
 
   let idsArr = episode.map(ep => Number(ep.slice(-2).replace('/', '')))
   let ids = idsArr.join(',')
 
-  const { data: episodes, isFetching, isSuccess, isError, error } = useGetEpisodeForCharacterQuery(ids)
+  const { data: episodes, isSuccess } = useGetEpisodeForCharacterQuery(ids)
 
   const episodesName = () => {
     if (Array.isArray(episodes)) {
@@ -36,6 +35,8 @@ export const Character = ({
     }
   }
 
+  let title = isSuccess ? episodesName() : null
+
   const episodesSeries = () => {
     if (Array.isArray(episodes)) {
       return episodes.map(ep => ep.episode).join(', ') 
@@ -44,12 +45,14 @@ export const Character = ({
     }
   }
 
+  let series = isSuccess ? episodesSeries() : null
+
   const user = users.find(usr => usr.isLogged === true)
 
   const likeToggle = () => {
     setLiked(!liked)
-    
     dispatch(likedChar({ 
+      key: id + 1,
       id,
       name,
       species, 
@@ -59,16 +62,12 @@ export const Character = ({
       episode,
       created, 
       image, 
-      episodes, 
-      episodesName,
-      episodesSeries
+      episodes,
+      user,
+      title, 
+      series
     }))
-  }
-
-
-
-  const classToggle = () => {
-    setClicked(!clicked)
+    console.log(id)
   }
 
   return ( 
@@ -76,9 +75,11 @@ export const Character = ({
       <div className="container">
         <img className="float-start rounded img-fluid my-3 me-3" src={image} alt={name} />
         <div className="mt-3">
-          <h5>Name: <span className="sm">{name}</span>, Status: <span className="sm">{status}</span></h5>  
-          <button className="btn my-3" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
-          <button className="btn" onClick={() => likeToggle()}>❤️ Like</button>
+          <h5>Name: <span className="sm">{name}</span>, Status: <span className="sm">{status}</span></h5> 
+          <div className="d-flex flex-column align-items-center">
+            <button className="btn my-3 w-75" onClick={() => setClicked(!clicked)}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
+            <button className= { !user || liked ? 'd-none' : 'btn my-3 w-50' } onClick={() => likeToggle()}>❤️ Like</button>
+          </div> 
           <div className={!clicked ? "d-none" : null}>
             <p><span className="fs-5">Species:</span> {species}</p>
             <p><span className="fs-5">Gender:</span> {gender}</p>
@@ -88,11 +89,11 @@ export const Character = ({
               <p className="fs-5">Episode(s):</p>
               <div>
                 <p className="ser">series:</p> 
-                <p>{isSuccess ? episodesSeries() : null}</p>
+                <p>{series}</p>
               </div>
               <div>
                 <p className="ser">title:</p> 
-                <p>{isSuccess ? episodesName() : null}</p>
+                <p>{title}</p>
               </div>
             </div>
           </div>

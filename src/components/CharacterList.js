@@ -17,7 +17,7 @@ export function CharacterList () {
       <p className="my-3">Flip through the pages... each page displays 20 characters</p>
       <div className="d-flex justify-content-between input-group input-group-sm my-4">
         <button className={page === 1 ? "btn disabled" : "btn"} onClick={() => dispatch(flipPage(-1))}>Prev: {page === 1 ? '' : page - 1}</button>
-        <span className="sm my-auto">Page {page}</span>
+        <span className="sm my-auto mx-auto">Page {page}</span>
         <button className={page === 42 ? "btn disabled" : "btn"} onClick={() => dispatch(flipPage(+1))}>Next: {page === 42 ? '' : page + 1}</button>
       </div>
       { 
@@ -26,7 +26,7 @@ export function CharacterList () {
         isSuccess ?
         characterList.results.map(char => 
           <Character 
-            key={char.id}
+            key={char.id + 1}
             id={char.id}
             name={char.name}
             species={char.species}

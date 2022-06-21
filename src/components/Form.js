@@ -61,7 +61,8 @@ export function Form () {
           isSuccess ? 
           character.results.map(item => 
             <Character 
-              key={item.id}
+              id={item.id}
+              key={item.id + 1}
               name={item.name}
               status={item.status}
               species={item.species}
