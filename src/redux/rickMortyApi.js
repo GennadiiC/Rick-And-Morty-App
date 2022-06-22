@@ -32,7 +32,7 @@ export const rickMortyApi = createApi({
         const usefulData = merged.map(res => res.results).flat()
 
         if (errors.length > 0 && merged.includes(undefined)) {
-          return { error: 'Bratuha, you fucked up big time' }
+          return { error: 'there is an error' }
         }
 
         return { data: usefulData }

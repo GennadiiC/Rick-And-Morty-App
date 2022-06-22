@@ -1,5 +1,4 @@
 import { Facebook } from "./Facebook"
-import { Link } from 'react-router-dom'
 
 export const NavBar = () => {
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { disLikedChar } from "../redux/rickMortySlice";
 
@@ -22,10 +22,9 @@ export const Likes = () => {
 
   return (
     <div className="container">
-      {console.log(user.likedCharacters)}
       { user !== undefined && user.likedCharacters.length > 0 ?
         user.likedCharacters.map((like, i) => 
-          <div key={i} className="container w-50">
+          <div key={i} className="container d-flex flex-column justify-content-between mt-5 custom-width">
             <div className="d-flex justify-content-between my-2 rounded shadow">
               <div className="container">
                 <img className="float-start rounded img-fluid my-3 me-3" src={like.image} alt={like.name} />
@@ -34,9 +33,9 @@ export const Likes = () => {
                   <h5>Name: <span className="sm">{like.name}</span>,</h5>
                   <h5>Status: <span className="sm">{like.status}</span></h5> 
                 
-                  <div className="d-flex flex-column align-items-center">
-                    <button className="btn my-3 w-75" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
-                    <button className="btn my-3 w-50" onClick={() => dislikeToggle(like.id)}>{'💔 Dislike'}</button>
+                  <div className="d-flex flex-column align-items-end">
+                    <button className="btn my-3" onClick={() => classToggle()}>{!clicked ? 'Show Info' : 'Hide Info'}</button>
+                    <button className="btn my-3" onClick={() => dislikeToggle(like.id)}>{'💔 Dislike'}</button>
                   </div>
                   
                   <div className={!clicked ? "d-none" : null}>

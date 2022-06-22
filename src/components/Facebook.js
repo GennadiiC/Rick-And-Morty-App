@@ -2,12 +2,14 @@ import ReactFacebookLogin from "react-facebook-login/dist/facebook-login-render-
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/rickMortySlice";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Facebook = () => {
 
   const dispatch = useDispatch()
   const { users } = useSelector((state) => state.rickMorty)
+
+  const location = useLocation()
 
 
   const [ state, setState ] = useState({
@@ -16,11 +18,6 @@ export const Facebook = () => {
   })
 
   const [ clicked, setClicked ] = useState(false)
-
-
-  // const componentClicked = () => {
-  //   console.log('clicked')
-  // }
 
 
   const responseFacebook = (response) => {
@@ -51,7 +48,10 @@ export const Facebook = () => {
       <div className="d-flex justify-content-around align-items-center w-50">
         <img className="img-fluid rounded float-start" src={user.userPicture} alt={user.name} />
         <h6 className="h6 me-2 ms-3">Welcome, {user.name}</h6>
-        <Link className="btn btn-outline-dark text-center me-2" onClick={() => setClicked(!clicked)} to={!clicked ? '/likes' : '/'}>{!clicked ? 'See liked' : 'Go to main'}</Link>
+        <Link 
+          className="btn btn-outline-dark text-center me-2" 
+          onClick={() => setClicked(!clicked)} 
+          to={location.pathname === '/' ? '/likes' : '/'}>{location.pathname === '/' ? 'See liked' : 'Go to main'}</Link>
       </div>
     )
   } else {

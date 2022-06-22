@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useGetAllCharactersByPageQuery } from "../redux/rickMortyApi"
 import { Character } from "./Character"
 import { useSelector, useDispatch } from "react-redux"
@@ -12,7 +11,7 @@ export function CharacterList () {
   const { data: characterList, isLoading, isSuccess, isError, error } = useGetAllCharactersByPageQuery(page)
 
   return (
-    <div className='container w-50'>
+    <div className='container-fluid'>
       <h3 className='h3 text-center my-4'>Browse List of Characters</h3>
       <p className="my-3">Flip through the pages... each page displays 20 characters</p>
       <div className="d-flex justify-content-between input-group input-group-sm my-4">

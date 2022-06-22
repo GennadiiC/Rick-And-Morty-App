@@ -46,7 +46,6 @@ const rickMortySlice = createSlice({
     disLikedChar: (state, {payload}) => {
       let user = state.users.find(usr => usr.isLogged === true)
       user.likedCharacters = user.likedCharacters.filter(char => char.id !== payload.charID)
-      console.log(payload)
     },
     logOut: (state, action) => {
       let user = state.users.find(usr => usr.isLogged === true)

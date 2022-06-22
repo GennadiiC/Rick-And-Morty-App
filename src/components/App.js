@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element=
         {
-          <div className='container d-flex justify-content-between mt-5'>
+          <div className='container d-flex flex-column justify-content-between mt-5 custom-width'>
             <Form />
             <CharacterList />
           </div>

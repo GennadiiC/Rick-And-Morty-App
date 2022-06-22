@@ -1,20 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { useGetCharacterByNameQuery, useGetAllNamesQuery } from '../redux/rickMortyApi';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Character } from './Character';
 
 
 export function Form () {
 
-  const page = useSelector((state) => state.rickMorty.page)
-
   const { register, handleSubmit, reset } = useForm();
   const [ name, setName ] = useState('')
-  const [ search, setSearch ] = useState('')
 
   const { data: character, isFetching, isSuccess, isError, error } = useGetCharacterByNameQuery(name);
-  const { data: allNames, isSuccess: namesSuccess, isError: namesErr, error: err } = useGetAllNamesQuery()
+  const { data: allNames, isSuccess: namesSuccess } = useGetAllNamesQuery()
 
   const onSubmit = (value) => {
     setName(value.name);
@@ -22,7 +18,7 @@ export function Form () {
   }
 
   return (
-    <div className='container w-50'>
+    <div className='container-fluid'>
       <h3 className='h3 text-center my-4'>Find your character</h3>
       {
         name === '' ? 
@@ -38,7 +34,6 @@ export function Form () {
       <form className='input-group input-group-sm my-4' onSubmit={handleSubmit(onSubmit)}>
         <input 
           className="form-control" 
-          onChange={(e) => setSearch(e.target.value)}
           list="datalistOptions" 
           id="exampleDataList" 
           {...register('name')} 
